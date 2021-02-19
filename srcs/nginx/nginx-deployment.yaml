@@ -6,12 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx-pods-label
+      app: nginx-service
   template:
     metadata:
       name: nginx-pod
       labels:
-        app: nginx-pods-label
+        app: nginx-service
     spec:
       containers:
       - name: nginx
