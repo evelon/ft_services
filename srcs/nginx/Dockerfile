@@ -19,6 +19,7 @@ RUN openssl req -newkey rsa:2048 \
 			chmod 600 /etc/ssl/certs/nginx-selfsigned.crt /etc/ssl/private/nginx-selfsigned.key
 COPY ./nginx.conf ./etc/nginx/http.d/nginx_service.conf
 COPY ./index.html ./var/www/html/
+COPY ./fastcgi_params ./etc/nginx/fastcgi_params
 RUN rm etc/nginx/http.d/default.conf
 RUN mkdir /run/nginx
 CMD ["nginx", "-g", "daemon off;"]
