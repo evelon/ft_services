@@ -4,4 +4,6 @@ RUN apk update && apk upgrade
 
 # install mariadb mariadb-client
 RUN apk add mariadb mariadb-client
-RUN mysql
+RUN mkdir -p /run/mysqld && \
+	mariadb-install-db --user=root --datadir=/var/lib/mysql
+CMD ["mysqld", "--user=root"]
