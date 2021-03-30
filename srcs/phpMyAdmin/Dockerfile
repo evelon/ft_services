@@ -1,5 +1,5 @@
 FROM alpine:3.13.1
-LABEL maintainer "jolim <ezemango@gmail.com>"
+LABEL maintainer "jolim <jolim@student.seoul42.kr>"
 RUN apk update && apk upgrade
 
 # expose a port
@@ -8,26 +8,28 @@ EXPOSE 5050
 # install nginx, wget, php-fpm and php-mbstring
 RUN apk add nginx
 RUN apk add wget
-RUN apk add php-fpm php-mbstring
+RUN apk add php-fpm php-mbstring php-json php-ctype php-curl php-session php-mysqli
 
 # install phpMyAdmin
-RUN mkdir -p /var/www/html/phpMyAdmin/
 WORKDIR /tmp/
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz && \
 		tar -zxvf phpMyAdmin-5.0.4-all-languages.tar.gz && \
-		mv phpMyAdmin-5.0.4-all-languages /var/www/html/phpMyAdmin && \
+		mv phpMyAdmin-5.0.4-all-languages phpmyadmin && \
+		mv phpmyadmin /var/www/html/ && \
 		rm phpMyAdmin-5.0.4-all-languages.tar.gz
-COPY ./pma-config.php /var/www/html/phpMyAdmin/config.inc.php
+COPY ./pma-config.php /var/www/html/phpmyadmin/config.inc.php
 WORKDIR /
 
+# install openrc
+RUN apk add openrc
 
-RUN mkdir /var/www/html/phpMyAdmin/tmp && \
-		chown -R nginx:nginx /var/www/html/phpMyAdmin && \
-		chmod -R 775 /var/www/html/phpMyAdmin
+RUN mkdir /var/www/html/phpmyadmin/tmp && \
+		chown -R nginx:nginx /var/www/html && \
+		chmod -R 775 /var/www/html
 
 # copy config file for nginx
 COPY ./pma.conf /etc/nginx/http.d/phpmyadmin_service.conf
 COPY ./fastcgi_params /etc/nginx/fastcgi_params
-
-RUN mkdir /run/nginx
-CMD ["nginx", "-g", "daemon off;"]
+COPY ./setup.sh /tmp/setup.sh
+RUN chmod -u+x /tmp/setup.sh
+CMD ["/tmp/setup.sh"]
