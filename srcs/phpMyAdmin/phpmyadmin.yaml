@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-pma
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pma-service
+  template:
+    metadata:
+      name: pma-pod
+      labels:
+        app: pma-service
+    spec:
+      containers:
+      - name: phpmyadmin
+        image: phpmyadmin
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5050
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+spec:
+  ports:
+    - name: web-port
+      port: 5050
+      targetPort: 5050
+  selector:
+    app: phpmyadmin-service
+  type: LoadBalancer

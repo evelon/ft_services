@@ -1,4 +1,4 @@
 #!/bin/bash
 BASEDIR=$(dirname "$0")
-docker image rm -f alpine_nginx:service
-docker build -t alpine_nginx:service $BASEDIR
+docker image rm -f nginx
+docker build -t nginx $BASEDIR

@@ -30,10 +30,10 @@ COPY ./fastcgi_params /etc/nginx/fastcgi_params
 COPY ./setup.sh /tmp/setup.sh
 RUN chmod -u+x /tmp/setup.sh
 
-# # install openrc
-# RUN apk add openrc
+# # # install openrc
+# # RUN apk add openrc
 
-RUN mkdir -p /run/php-fpm7/ \
-		mkdir -p /run/nginx/ \
-		mkdir -p /run/openrc/
-CMD php-fpm7 -D; nginx -g "daemon off;";
+# RUN mkdir -p /run/php-fpm7/ \
+# 		mkdir -p /run/nginx/ \
+# 		mkdir -p /run/openrc/
+CMD ["php-fpm7", "-D", "&", "nginx", "-g", "daemon off;"];

@@ -15,16 +15,20 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: s_nginx:test
+        image: nginx
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+          protocol: TCP
+        - containerPort: 443
           protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-svc-lb
+  name: nginx
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   ports:
     - name: http-port
