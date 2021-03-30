@@ -1,16 +1,16 @@
 #!/bin/sh
 
+mkdir -p /run/php-fpm7/
 mkdir -p /run/nginx/
 mkdir -p /run/openrc/
-mkdir -p /run/php-fpm7/
+touch /run/php-fpm7/softlevel
 touch /run/nginx/softlevel
 touch /run/openrc/softlevel
-touch /run/php-fpm7/softlevel
 
-rc-update add nginx default
 rc-update add php-fpm7 default
+rc-update add nginx default
 rc-status default
-rc-service nginx start
 rc-service php-fpm7 start
+rc-service nginx start
 
 sh

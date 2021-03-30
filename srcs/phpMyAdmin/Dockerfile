@@ -20,9 +20,6 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-lang
 COPY ./pma-config.php /var/www/html/phpmyadmin/config.inc.php
 WORKDIR /
 
-# install openrc
-RUN apk add openrc
-
 RUN mkdir /var/www/html/phpmyadmin/tmp && \
 		chown -R nginx:nginx /var/www/html && \
 		chmod -R 775 /var/www/html
@@ -32,4 +29,11 @@ COPY ./pma.conf /etc/nginx/http.d/phpmyadmin_service.conf
 COPY ./fastcgi_params /etc/nginx/fastcgi_params
 COPY ./setup.sh /tmp/setup.sh
 RUN chmod -u+x /tmp/setup.sh
-CMD ["/tmp/setup.sh"]
+
+# # install openrc
+# RUN apk add openrc
+
+RUN mkdir -p /run/php-fpm7/ \
+		mkdir -p /run/nginx/ \
+		mkdir -p /run/openrc/
+CMD php-fpm7 -D; nginx -g "daemon off;";
