@@ -5,9 +5,6 @@ RUN apk update && apk upgrade
 # install nginx
 RUN apk add nginx
 
-# expose ports
-EXPOSE 80 443
-
 # set ssl
 RUN apk add openssl
 RUN openssl req -newkey rsa:2048 \
@@ -23,4 +20,8 @@ COPY ./nginx.conf /etc/nginx/conf.d/nginx_service.conf
 RUN rm -f /etc/nginx/conf.d/default.conf
 COPY ./index.html /var/www/html/
 RUN mkdir /run/nginx
+
+# expose ports
+EXPOSE 80 443
+
 CMD ["nginx", "-g", "daemon off;"]

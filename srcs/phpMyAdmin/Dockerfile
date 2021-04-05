@@ -5,9 +5,6 @@ RUN apk update && apk upgrade
 # install openrc
 RUN apk add openrc
 
-# expose a port
-EXPOSE 5000
-
 # install nginx, wget, php-fpm and php-mbstring
 
 RUN apk add nginx
@@ -31,14 +28,15 @@ RUN mkdir /var/www/html/tmp && \
 
 # copy config file for nginx
 COPY ./pma.conf /etc/nginx/conf.d/phpmyadmin_service.conf
-RUN rm -f /etc/nginx/conf.d/default.conf
 COPY ./fastcgi_params /etc/nginx/fastcgi_params
+
+# prepare setup.sh
 COPY ./setup.sh /tmp/setup.sh
 RUN chmod -u+x /tmp/setup.sh
 
 VOLUME ["/sys/fs/cgroup/"]
 
-# RUN mkdir -p /run/php-fpm7/ \
-# 		mkdir -p /run/nginx/ \
-# 		mkdir -p /run/openrc/
+# expose a port
+EXPOSE 5000
+
 CMD ["./tmp/setup.sh"];
