@@ -22,12 +22,12 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-lang
 		mv phpMyAdmin-5.0.4-all-languages phpmyadmin && \
 		mv phpmyadmin /var/www/html/ && \
 		rm phpMyAdmin-5.0.4-all-languages.tar.gz
-COPY ./pma-config.php /var/www/html/phpmyadmin/config.inc.php
+COPY ./pma-config.php /var/www/html/config.inc.php
 WORKDIR /
 
-RUN mkdir /var/www/html/phpmyadmin/tmp && \
-		chown -R nginx:nginx /var/www/html && \
-		chmod -R 775 /var/www/html
+RUN mkdir /var/www/html/tmp && \
+		chown -R nginx:nginx /var/www/html/tmp && \
+		chmod -R 775 /var/www/html/tmp
 
 # copy config file for nginx
 COPY ./pma.conf /etc/nginx/conf.d/phpmyadmin_service.conf
