@@ -1,17 +1,24 @@
-FROM alpine:3.13.1
+FROM alpine:3.12
 LABEL maintainer "jolim <ezemango@gmail.com>"
 RUN apk update && apk upgrade
 
-# install mariadb mariadb-client openrc
-RUN apk add mariadb mariadb-client openrc
+# install openrc
+RUN apk add openrc
+
+# expose a port
+EXPOSE 3306
+
+# install mariadb mariadb-client
+RUN apk add mariadb mariadb-client
 
 # config file for mariadb
 
-RUN mkdir -p /run/mysqld && mariadb-install-db --user=root --datadir=/var/lib/mysql
-COPY ./my.cnf /etc/my.cnf
+RUN mkdir -p /run/mysqld
+COPY ./my.cnf /etc/mysql/
 
 # initialize for phpmyadmin
 COPY ./create_tables.sql /tmp/
+COPY ./mysql-init.sql /tmp/mysql-init.sql
 COPY ./setup.sh /tmp/
 RUN chmod 775 /tmp/setup.sh
 
@@ -19,7 +26,5 @@ VOLUME ["/sys/fs/cgroup/"]
 
 # initialize openrc
 RUN mkdir /run/openrc && touch /run/openrc/softlevel
-
-EXPOSE 3306
 
 CMD ["./tmp/setup.sh"]

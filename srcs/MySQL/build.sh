@@ -1,3 +1,3 @@
 #!/bin/bash
-docker image rm -f alpine_ft:mysql
-docker build -t alpine_ft:mysql $(dirname "$0")
+docker image rm -f mysql
+docker build -t mysql $(dirname "$0")

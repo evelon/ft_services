@@ -2,34 +2,40 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-pma
+  labels:
+    app: phpmyadmin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pma-service
+      app: phpmyadmin
   template:
     metadata:
       name: pma-pod
       labels:
-        app: pma-service
+        app: phpmyadmin
     spec:
       containers:
       - name: phpmyadmin
         image: phpmyadmin
         imagePullPolicy: Never
         ports:
-        - containerPort: 5050
+        - containerPort: 5000
           protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: phpmyadmin
+  labels:
+    app: phpmyadmin
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   ports:
-    - name: web-port
-      port: 5050
-      targetPort: 5050
+    - name: http-port
+      port: 5000
+      targetPort: 5000
   selector:
-    app: phpmyadmin-service
+    app: phpmyadmin
   type: LoadBalancer

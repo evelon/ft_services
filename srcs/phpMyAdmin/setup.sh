@@ -11,6 +11,4 @@ rc-update add php-fpm7 default
 rc-update add nginx default
 rc-status default
 rc-service php-fpm7 start
-rc-service nginx start
-
-sh
+nginx -g "daemon off;"
