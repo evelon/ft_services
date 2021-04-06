@@ -8,7 +8,6 @@ RUN apk add vsftpd
 
 # set vsftpd
 COPY ./vsftpd.conf /etc/vsftpd/
-RUN echo root > /etc/vsftpd/chroot_list
 
 EXPOSE 21
 
