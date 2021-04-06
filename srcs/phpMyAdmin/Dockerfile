@@ -23,8 +23,8 @@ COPY ./pma-config.php /var/www/html/config.inc.php
 WORKDIR /
 
 RUN mkdir /var/www/html/tmp && \
-		chown -R nginx:nginx /var/www/html/tmp && \
-		chmod -R 775 /var/www/html/tmp
+		chown -R nginx:nginx /var/www/html && \
+		chmod -R 775 /var/www/html
 
 # copy config file for nginx
 COPY ./pma.conf /etc/nginx/conf.d/phpmyadmin_service.conf

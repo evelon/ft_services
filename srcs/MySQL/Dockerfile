@@ -17,7 +17,7 @@ RUN mkdir -p /run/mysqld
 COPY ./my.cnf /etc/mysql/
 
 # initialize for phpmyadmin
-COPY ./create_tables.sql /tmp/
+COPY ./create_tables.sql /tmp/create_tables.sql
 COPY ./mysql-init.sql /tmp/mysql-init.sql
 COPY ./setup.sh /tmp/
 RUN chmod 775 /tmp/setup.sh

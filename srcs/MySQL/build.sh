@@ -1,3 +1,4 @@
 #!/bin/bash
+BASEDIR=$(dirname "$0")
 docker image rm -f mysql
-docker build -t mysql $(dirname "$0")
+docker build -t mysql $BASEDIR

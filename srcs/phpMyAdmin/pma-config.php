@@ -83,7 +83,7 @@ $cfg['SaveDir'] = '';
  * TempDir for cache
  */
 
-$cfg['TempDir'] = '/var/www/html/tmp';
+$cfg['TempDir'] = '/var/www/html/tmp/';
 
 
 /**
