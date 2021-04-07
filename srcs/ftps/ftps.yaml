@@ -20,8 +20,11 @@ spec:
         image: ftps
         imagePullPolicy: Never
         ports:
+        - containerPort: 20
         - containerPort: 21
-          protocol: TCP
+        - containerPort: 20020
+        - containerPort: 20021
+        - containerPort: 20022
 ---
 apiVersion: v1
 kind: Service
@@ -33,9 +36,21 @@ metadata:
     metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   ports:
-    - name: ftps-port
+    - name: ftps-data
+      port: 20
+      targetPort: 20
+    - name: ftps-connection
       port: 21
       targetPort: 21
+    - name: ftps-data0
+      port: 20020
+      targetPort: 20020
+    - name: ftps-data1
+      port: 20021
+      targetPort: 20021
+    - name: ftps-data2
+      port: 20022
+      targetPort: 20022
   selector:
     app: ftps
   type: LoadBalancer

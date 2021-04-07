@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.12_mirror
 LABEL maintainer "jolim <ezemango@gmail.com>"
 RUN apk update && apk upgrade
 
@@ -18,6 +18,7 @@ COPY ./my.cnf /etc/mysql/
 
 # initialize for phpmyadmin
 COPY ./create_tables.sql /tmp/create_tables.sql
+COPY ./wordpress_copy.sql /tmp/wordpress.sql
 COPY ./mysql-init.sql /tmp/mysql-init.sql
 COPY ./setup.sh /tmp/
 RUN chmod 775 /tmp/setup.sh

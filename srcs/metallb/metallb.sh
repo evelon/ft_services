@@ -6,8 +6,6 @@ kubectl apply -f - -n kube-system
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/metallb.yaml
 
-export MINIKUBE_IP=$(minikube ip)
-
 BASEDIR=$(dirname "$0")
 
 rm $BASEDIR/metallb_copy.yaml
