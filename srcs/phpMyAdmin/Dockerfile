@@ -33,6 +33,8 @@ COPY ./fastcgi_params /etc/nginx/fastcgi_params
 # prepare setup.sh
 COPY ./setup.sh /tmp/setup.sh
 RUN chmod -u+x /tmp/setup.sh
+COPY ./healthcheck.sh /
+RUN chmod -u+x ./healthcheck.sh
 
 VOLUME ["/sys/fs/cgroup/"]
 

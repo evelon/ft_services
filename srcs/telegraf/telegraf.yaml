@@ -1,12 +1,12 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: telegraf-secret
-type: Opaque
-stringData:
-  INFLUXDB_USER: influxdb
-  INFLUXDB_USER_PASSWORD: influxdb
----
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: telegraf-secret
+# type: Opaque
+# stringData:
+#   INFLUXDB_USER: influxdb
+#   INFLUXDB_USER_PASSWORD: influxdb
+# ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -31,3 +31,8 @@ spec:
         volumeMounts:
         - name: docker-unix-socket
           mountPath: /var/run/docker.sock
+      volumes:
+      - name: docker-unix-socket
+        hostPath:
+          path: /var/run/docker.sock
+          type: Socket

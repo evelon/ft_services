@@ -29,6 +29,8 @@ COPY ./wp.conf /etc/nginx/conf.d/wordpress_service.conf
 # prepare setup.sh
 COPY ./setup.sh /tmp/setup.sh
 RUN chmod -u+x /tmp/setup.sh
+COPY ./healthcheck.sh /
+RUN chmod -u+x ./healthcheck.sh
 
 VOLUME ["/sys/fs/cgroup/"]
 

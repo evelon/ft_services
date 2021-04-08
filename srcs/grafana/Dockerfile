@@ -3,6 +3,15 @@ LABEL maintainer "jolim <jolim@student.seoul42.kr>"
 RUN apk update && apk upgrade
 
 # install grafana
-RUN	apk add grafana --repository=https://mirrors.ustc.edu.cn/alpine/latest-stable/community/
+RUN	apk add grafana --repository=https://mirrors.ustc.edu.cn/alpine/v3.13/community/
 
-CMD ["/usr/sbin/grafana-server", "--homepath=/usr/share/grafana"]
+# config grafana
+COPY ./datasource.yaml /usr/share/grafana/conf/provisioning/datasources/
+COPY ./grafana_copy.ini /etc/grafana.ini
+
+# set dashboards
+RUN mkdir -p /var/lib/grafana/dashboards
+COPY ./dashboards /var/lib/grafana/dashboards/
+COPY ./dashboards.yaml /usr/share/grafana/conf/provisioning/dashboards/
+
+CMD ["/usr/sbin/grafana-server", "--config=/etc/grafana.ini","--homepath=/usr/share/grafana"]
