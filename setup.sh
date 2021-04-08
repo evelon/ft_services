@@ -24,3 +24,5 @@ kubectl apply -f ./srcs/ftps/ftps.yaml
 kubectl apply -f ./srcs/telegraf/telegraf.yaml
 kubectl apply -f ./srcs/influxdb/influxdb.yaml
 kubectl apply -f ./srcs/grafana/grafana.yaml
+
+minikube dashboard

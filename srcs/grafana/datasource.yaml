@@ -9,3 +9,6 @@ datasources:
     url: http://influxdb:8086
     jsonData:
       httpMode: GET
+    basicAuth: true
+    basicAuthUser: influxdb
+    basicAuthPassword: influxdb

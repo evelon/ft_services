@@ -14,4 +14,4 @@ RUN mkdir -p /var/lib/grafana/dashboards
 COPY ./dashboards /var/lib/grafana/dashboards/
 COPY ./dashboards.yaml /usr/share/grafana/conf/provisioning/dashboards/
 
-CMD ["/usr/sbin/grafana-server", "--config=/etc/grafana.ini","--homepath=/usr/share/grafana"]
+CMD ["/usr/sbin/grafana-server", "--config=/etc/grafana.ini", "--homepath=/usr/share/grafana"]
